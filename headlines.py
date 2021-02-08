@@ -12,25 +12,36 @@ RSS_FEEDS = {"bbc": "https://feeds.bbci.co.uk/news/rss.xml",
              "fontanka": "https://www.fontanka.ru/fontanka.rss",
              "iol": "https://www.iol.co.za/cmlink/1.640"}
 
+DEFAULTS = {'publication': 'bbc',
+            'city': 'Saint Petersburg,RU'}
+
 
 @app.route("/")
-def get_news():
-    query = request.args.get("publication")
+def home():
+    #get customized headlines, based on user input or default
+    publication = request.args.get("publication")
+    if not publication:
+        publication = DEFAULTS['publication']
+    articles = get_news(publication)
+    #get customized weather based on user input or default
+    city = request.args.get("city")
+    if not city:
+        city = DEFAULTS['city']
+    weather = get_weather(city)
+    return render_template("home.html", articles=articles,
+                           weather=weather)
+def get_news(query):
     if not query or query.lower() not in RSS_FEEDS:
         publication = "bbc"
     else:
         publication = query.lower()
     feed = feedparser.parse(RSS_FEEDS[publication])
-    weather = get_weather("Saint Petersburg,RU")
-    return render_template("home.html",
-                           articles=feed["entries"],
-                           weather=weather)
+    return feed ['entries']
 
 
 def get_weather(query):
     api_url = "http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=f70330d2dcb552910e27d79718ebb2fc"
     url = api_url.format(query)
-    print(url)
     http = urllib3.PoolManager()
     r = http.request("GET", url)
     data = r.data
