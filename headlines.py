@@ -14,6 +14,8 @@ RSS_FEEDS = {"BBC": "https://feeds.bbci.co.uk/news/rss.xml",
              "4PDA": "https://4pda.ru/feed/",
              }
 
+CURRENCY_FEEDS = "https://currr.ru/rss/"
+
 DEFAULTS = {'publication': 'BBC',
             'city': 'Saint Petersburg,RU'}
 list_rss = RSS_FEEDS.keys()
@@ -31,8 +33,11 @@ def home():
     if not city:
         city = DEFAULTS['city']
     weather = get_weather(city)
+    currency = get_cur()
+    print(currency)
     return render_template("home.html", articles=articles,
-                           weather=weather, list_rss=list_rss)
+                           weather=weather, list_rss=list_rss,
+                           currency=currency)
 
 
 def get_news(query):
@@ -56,6 +61,16 @@ def get_weather(query):
                "city": parsed["name"]
                }
     return weather
+
+def get_cur():
+    feed = feedparser.parse(CURRENCY_FEEDS)
+    date = feed['entries'][-1]['title']
+    str_cur = feed['entries'][-1]['summary']
+    ls_cur = str_cur.split('\t')
+    cur_USD = ls_cur[0]
+    cur_EUR = ls_cur[-1]
+    currency = {"date": date, "cur_USD": cur_USD, "cur_EUR": cur_EUR}
+    return currency
 
 
 if __name__ == '__main__':
