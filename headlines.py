@@ -1,11 +1,13 @@
 import feedparser
 import datetime
 from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap
 import json
 import urllib3
 
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 RSS_FEEDS = {"BBC": "https://feeds.bbci.co.uk/news/rss.xml",
              "CNN": "http://rss.cnn.com/rss/edition.rss",

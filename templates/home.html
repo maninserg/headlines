@@ -1,95 +1,52 @@
-<html>
-	<head>
-		<title>Headlines</title>
-<style>
-html {
-	font-family: "Helvetica";
-	background: white;
-}
-body {
-	background: lightgrey;
-	max-width: 800px;
-	margin: 10 auto;
-}
-img {
-	max-width: 70%;
-  	height: auto;
-	display:block;
-	margin:auto;
-}
-#header {
-	padding-top: 5;
-	background: lightblue;
-	}
-#inner-header {
-	padding-left: 10;
-}
-#main {
-	padding-left: 10;
-	padding-right: 10;
-}
+{% extends "bootstrap/base.html" %}
 
-input [type="text"], select {
-	color: grey;
-	border: 1px solid lightblue;
-	height: 30px;
-	line-height: 15px;
-	margin: 2px 6px 16px 0px;
-}
-input [type="submit"] {
-	padding: 5px 10px 5px 10px;
-	color: black;
-	background: lightblue;
-	border: none;
-	box-shadow: 1px 1px 1px #4C6E91;
-}
+{% block title %}Headlines{% endblock %}
 
-input [type="submit"]:hover {
-	background: steelblue;
-}
-#time {
-	font-size: 75%;
-}
-</style>
+{% block navbar %}
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/"><b>Headlines</b></a>
+		<span class="navbar-text">
+			<p><i>Headlines. Currency. Weather</i></p>
+		</span>
+	</div>
+</nav>
+{% endblock %}
 
 
-	</head>
-	<body>
-		<div id="header">
-			<div id="inner-header">
-				<h1>Headlines</h1>
-				<p>Headlines. Currency. Weather</p>
-			</div>
-			<hr>
+{% block content %}
+<div class="container">
+	<p id="time" align="right"><i>Current date and time: {{ date }}</i></p>
+	<p><h3><b>Current weather</b></h3></p>
+	<p><form>
+		<div class="form-group">
+			<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="city" placeholder="Enter name of city">
 		</div>
-		<div id="main">
-			<p id="time" align="right"><i>Current date and time: {{ date }}</i></p>
-			<h2>Current weather</h2>
-			<form>
-				<input type="text" name="city" placeholder="weather search">
-				<input type="submit" value="Submit">
-			</form>
-			<p>City: <b>{{ weather.city }}</b></p>
-			<p>{{ weather.description }} | {{ weather.temperature }}</p>
-			<h2>Currency</h2>
-			<p><b>{{ currency.date }}</b></p>
-			<p>{{ currency.cur_USD }}</p>
-			<p>{{ currency.cur_EUR }}</p>
-			<h2>Headlines</h2>
-			<form>
-				<select name='publication'>
-					{% for item in list_rss %}
-					<option value='{{ item }}'>{{ item }}</option>
-					{% endfor %}
-				</select>
-				<input type='submit' value="Submit">
-			</form>
-			{% for article in articles[0:10] %}
-			<b><a href="{{ article.link }}">{{ article.title }}</a></b><br>
-				<i>{{ article.published }}</i><br>
-				<p>{{ article.summary|safe }}</p>
-				<hr>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form></p>
+	<p>City: <b>{{ weather.city }}</b></p>
+	<p>{{ weather.description }} | {{ weather.temperature }}</p>
+	<p><h3><b>Currency</b></h3></p>
+	<p><b>{{ currency.date }}</b></p>
+	<p>{{ currency.cur_USD }}</p>
+	<p>{{ currency.cur_EUR }}</p>
+	<p><h3><b>Headlines</b></h3></p>
+	<p><form>
+		<select class="form-select" name="publication" aria-label="Default select example">
+			<option selected>Open this select menu</option>
+			{% for item in list_rss %}
+			<option value="{{ item }}">{{ item }}</option>
 			{% endfor %}
-		</div>
-	</body>
-</html>
+		</select>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form></p>
+	<p>
+	{% for article in articles[0:10] %}
+	<b><a href="{{ article.link }}">{{ article.title }}</a></b><br>
+	<i>{{ article.published }}</i><br>
+	<p>{{ article.summary|safe }}</p>
+	<hr>
+	{% endfor %}
+	<p>
+</div>
+{% endblock %}
