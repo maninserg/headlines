@@ -1,1 +1,1 @@
-web: gunicorn app:headlines
+web: gunicorn runp-heroku::headlines
