@@ -1,4 +1,5 @@
 import feedparser
+import datetime
 from flask import Flask, render_template, request
 import json
 import urllib3
@@ -34,10 +35,10 @@ def home():
         city = DEFAULTS['city']
     weather = get_weather(city)
     currency = get_cur()
-    print(currency)
+    date = get_time()
     return render_template("home.html", articles=articles,
                            weather=weather, list_rss=list_rss,
-                           currency=currency)
+                           currency=currency, date=date)
 
 
 def get_news(query):
@@ -71,6 +72,10 @@ def get_cur():
     cur_EUR = ls_cur[-1]
     currency = {"date": date, "cur_USD": cur_USD, "cur_EUR": cur_EUR}
     return currency
+
+def get_time():
+    date = datetime.datetime.today().strftime("%d %B %Y, %A %H:%M")
+    return date
 
 
 if __name__ == '__main__':

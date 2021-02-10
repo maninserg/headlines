@@ -47,6 +47,9 @@ input [type="submit"] {
 input [type="submit"]:hover {
 	background: steelblue;
 }
+#time {
+	font-size: 75%;
+}
 </style>
 
 
@@ -60,6 +63,7 @@ input [type="submit"]:hover {
 			<hr>
 		</div>
 		<div id="main">
+			<p id="time" align="right"><i>Current date and time: {{ date }}</i></p>
 			<h2>Current weather</h2>
 			<form>
 				<input type="text" name="city" placeholder="weather search">
