@@ -1,1 +1,1 @@
-web: guincorn app:headlines
+web: gunicorn app:headlines
