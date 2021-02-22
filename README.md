@@ -10,12 +10,12 @@ and currency exchange rates to users
 <hr>
 
 <p align="center">
-  <img src="screenshots/main_menu.png"/>
+  <img src="screenshots/main_page.jpg"/>
 <p align="center">The main menu<p align="center">
 </p>
 
 
 <p align="center">
-  <img src="screenshots/choice_headlines.png"/>
+  <img src="screenshots/choice_headlines.jpg"/>
 <p align="center">The choice headlines<p align="center">
 </p>
