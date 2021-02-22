@@ -11,11 +11,11 @@ and currency exchange rates to users
 
 <p align="center">
   <img width = "250" src="screenshots/main_page.jpg"/>
-<p align="center">The main page<p align="center">
+<p align="center"><b>The main page</b><p align="center">
 </p>
 
 
 <p align="center">
   <img width = "250" src="screenshots/choice_headlines.jpg"/>
-<p align="center">The choice headlines<p align="center">
+<p align="center"><b>The choice headlines</b><p align="center">
 </p>
